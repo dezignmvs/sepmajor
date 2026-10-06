@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Student Record · SEP Major</title><link rel="stylesheet" href="css/global.css"><script type="module" src="js/app.js"></script>
+</head>
+<body data-page="student-entry">
+<main class="student-entry-page"><section class="student-entry-card">
+  <a class="back" href="index.html">← Back to home</a>
+  <div class="entry-heading"><span class="logo">SF</span><div><span class="eyebrow">Student Enrichment Program</span><h1>Student details</h1><p>Enter your details to add an activity record.</p></div></div>
+  <form id="studentEntryForm" class="form-grid">
+    <div class="field"><label for="admissionNo">Admission No. *</label><input id="admissionNo" name="admissionNo" required placeholder="Enter admission number"></div>
+    <div class="field"><label for="studentName">Name *</label><input id="studentName" name="studentName" required placeholder="Enter student name"></div>
+    <div class="field full"><label for="studentClass">Class *</label><select id="studentClass" name="studentClass" required><option value="">Select class</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select></div>
+    <div class="field full"><button class="btn primary wide" type="submit">Record</button></div>
+  </form>
+</section></main>
+<dialog id="recordDialog" class="record-dialog"><form id="recordForm" novalidate>
+  <div class="modal-head"><div><h2>Add program record</h2><p id="studentSummary"></p></div><button type="button" class="modal-close" id="closeRecord" aria-label="Close">×</button></div>
+  <div class="form-grid">
+    <div class="field full"><label for="programName">Program name *</label><input id="programName" name="programName" required placeholder="Enter program name"></div>
+    <div class="field full"><label for="organizer">Program conducted organization *</label><input id="organizer" name="organizer" required placeholder="Enter organization name"></div>
+    <div class="field full"><label for="programDate">Date *</label><input id="programDate" name="date" type="date" required></div>
+    <div class="field full"><label>Supporting documents *</label><input hidden multiple id="recordProofInput" type="file" accept=".jpg,.jpeg,.png,.webp,.pdf"><button type="button" class="upload-box upload-button" id="recordUploadBox"><b>Choose supporting documents</b><span>JPG, PNG, WebP or PDF · multiple files allowed</span></button><div id="recordUploadList" class="upload-list"></div></div>
+  </div>
+  <div class="action-row add-program-row"><button type="button" class="btn primary" id="addProgram">+ Add Program</button></div>
+  <section class="program-list" id="programList" hidden><h3>Programs added</h3><div class="table-wrap"><table><thead><tr><th>Program</th><th>Organization</th><th>Date</th><th>Documents</th><th></th></tr></thead><tbody id="programRows"></tbody></table></div></section>
+  <div class="action-row modal-actions"><button type="button" class="btn ghost" id="cancelRecord">Cancel</button><button class="btn primary" type="submit">Submit All</button></div>
+</form></dialog>
+</body></html>
