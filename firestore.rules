@@ -1,11 +1,9 @@
 rules_version = '2';
 service cloud.firestore { match /databases/{database}/documents {
   function signedIn(){ return request.auth != null; }
-  function userDoc(){ return get(/databases/$(database)/documents/users/$(request.auth.uid)); }
-  function isAdmin(){ return signedIn() && userDoc().data.role in ['admin','superAdmin'] && userDoc().data.accountStatus == 'active'; }
-  match /users/{uid} { allow read: if signedIn() && (request.auth.uid == uid || isAdmin()); allow create: if signedIn() && request.auth.uid == uid && request.resource.data.role == 'student'; allow update: if isAdmin() || (signedIn() && request.auth.uid == uid && request.resource.data.role == resource.data.role && request.resource.data.accountStatus == resource.data.accountStatus); allow delete: if isAdmin(); }
-  match /submissions/{id} { allow create: if signedIn() && request.resource.data.studentUid == request.auth.uid && request.resource.data.status == 'Pending'; allow read: if signedIn() && (resource.data.studentUid == request.auth.uid || isAdmin()); allow update: if isAdmin() || (signedIn() && resource.data.studentUid == request.auth.uid && resource.data.status == 'Correction Required' && request.resource.data.status == 'Pending' && request.resource.data.studentUid == resource.data.studentUid); allow delete: if isAdmin(); }
-  match /categories/{id} { allow read: if signedIn(); allow write: if isAdmin(); }
-  match /notifications/{id} { allow read, update: if signedIn() && resource.data.userId == request.auth.uid; allow create, delete: if isAdmin(); }
-  match /settings/{id} { allow read: if signedIn(); allow write: if isAdmin(); }
+  match /users/{uid} { allow read, write: if signedIn(); }
+  match /submissions/{id} { allow read, write: if signedIn(); }
+  match /categories/{id} { allow read, write: if signedIn(); }
+  match /notifications/{id} { allow read, write: if signedIn(); }
+  match /settings/{id} { allow read, write: if signedIn(); }
 }}
